@@ -1,16 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>测试代码</title>
-    <link rel="stylesheet" href="./demo.css">
-    <script src="./demo.js"></script>
 </head>
+
 <body>
-    <div class="box">
-        测试代码
-    </div>
-    <div>我来开始学习sgit</div>
+
+    <body>
+        <form action="" method="post" enctype="multipart/form-data" >
+            <img src="" id="image" style="vertical-align: middle;max-width:200px;max-height:200px">
+        </form>
+        </br>
+        <h3>图标</h3>
+        <a href="#" onclick="choseImage()">请选择</a>
+        <div style="width: 500px;height: 300px;border: 1px black; display: none;" id="model">
+            <input type="file" name="file" id="input01" onchange="upImage(this,'show01')"></br>
+            <input type="file" name="file" id="input02" onchange="upImage(this,'show02')">
+            <input type="button" value="关闭" onclick="closeModel()">
+            <input type="button" value="确认" onclick="checkValue()">
+            <div id="show01" style="background-color: blue;width: 10px;height: 20px;"></div></br>
+            <div id="show02" style="background-color: chartreuse;width: 10px;height: 20px;top:90px;position: relative;">
+            </div>
+        </div>
+
+    </body>
+    <script>
+        var array = new Array();
+        function checkValue() {
+            closeModel();
+            var obj = document.getElementsByName("like");
+            console.log(obj);
+            for (var i = 0; i < obj.length; i++) {
+                if (obj[i].checked) {
+                    document.getElementById("image").src = array[i];
+                }
+            }
+
+        }
+
+        function upImage(file, place) {
+            console.log(place);
+            var files = file.files[0];
+            var readFile = new FileReader();
+            readFile.readAsDataURL(files);
+            readFile.onload = function () {
+                var show = document.getElementById(place);
+                var data = "<img style='vertical-align: middle;max-width:200px;max-height:200px;'" +
+                    " src='" + this.result + "' alt='' />";
+                show.innerHTML = data + " <input type='radio' name='like' style = 'display:inline'>";
+                array.push(this.result);
+            }
+        }
+        function choseImage() {
+            document.getElementById("model").style.display = "inline-block";
+        }
+        function closeModel() {
+            document.getElementById("model").style.display = "none";
+        }
+    </script>
 </body>
+
 </html>
